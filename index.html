@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>TOEIC (400-500) set-1 – Boo-riculum</title>
+  <title>Boo-riculum – Directions & Places</title>
   <link rel="icon" type="image/png" href="booha-ghost.png">
   <style>
     :root { --ink:#222; --muted:#444; --accent:#0b78ff; --ok:#22c55e; --bad:#ef4444; }
@@ -12,7 +12,7 @@
       margin:0;
       font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
       color:var(--ink);
-      background:url('Booha card.jpg') center/cover fixed no-repeat;
+      background:url('booha-card.jpg') center/cover fixed no-repeat;
     }
     .wrap{max-width:900px;margin:0 auto;padding:16px 16px 24px;}
     header{
@@ -21,7 +21,7 @@
       border-radius:16px;box-shadow:0 4px 10px rgba(0,0,0,0.15)
     }
     header h1{
-      font-size:18px;margin:0;font-weight:800;letter-spacing:.3px;
+      font-size:18px;margin:0;font-weight:700;letter-spacing:.2px;
       background:linear-gradient(90deg,#7dd3fc,#60a5fa,#a78bfa,#f472b6);
       -webkit-background-clip:text;-webkit-text-fill-color:transparent;
       display:flex;align-items:center;gap:8px
@@ -39,7 +39,7 @@
     .pill{border:1px solid #ccc;border-radius:999px;padding:6px 10px;font-size:12px;background:rgba(255,255,255,0.7)}
     .card{
       user-select:none;-webkit-user-select:none;display:flex;flex-direction:column;justify-content:center;align-items:center;
-      text-align:center;background:url('Booha card.jpg') center/cover no-repeat;
+      text-align:center;background:url('booha-card.jpg') center/cover no-repeat;
       border:1px solid #ccc;border-radius:24px;min-height:56vh;margin:16px auto;padding:22px 18px 28px;
       box-shadow:0 10px 40px rgba(0,0,0,.25); position:relative;
     }
@@ -67,21 +67,17 @@
     }
     .progress{height:8px;border-radius:999px;background:#eee;overflow:hidden}
     .progress>span{display:block;height:100%;background:linear-gradient(90deg,#7dd3fc,#60a5fa,#a78bfa,#f472b6);width:0%}
-    .grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
-    @media (max-width:700px){.grid{grid-template-columns:repeat(2,minmax(0,1fr));} .main{font-size:24px}}
-    a{color:#0b78ff;text-decoration:none}
     .hidden{display:none}
     .options{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
     .optbtn{border:1px solid #ccc;border-radius:12px;padding:10px 14px;background:rgba(255,255,255,0.95);cursor:pointer}
     .optbtn.ok{background:#dcfce7;border-color:#86efac;color:#166534}
     .optbtn.bad{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
-    .small{font-size:15px; line-height:1.45;}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1><img src="booha-ghost.png" alt="Booha ghost"> Boo-riculum – TOEIC (400-500) set-1</h1>
+      <h1><img src="booha-ghost.png" alt="Booha ghost"> Boo-riculum – Directions & Places</h1>
       <div class="controls">
         <select id="mode" aria-label="Mode">
           <option value="vocab-j2e">Vocab: 🇯🇵 → 🇺🇸</option>
@@ -90,6 +86,7 @@
           <option value="qa">Questions (practice)</option>
           <option value="quiz">Quiz (multiple choice)</option>
           <option value="reading">Reading</option>
+          <option value="diary">Diary Prompts</option>
         </select>
       </div>
     </header>
@@ -105,114 +102,233 @@
 
     <div class="footer">
       <div class="row">
-        <span class="pill" title="Left / Right keys">Keyboard: ← →</span>
-        <span class="pill" title="Space to flip">Space = Flip</span>
-        <button id="btnPrev" title="← or swipe right">◀︎ Prev</button>
-        <button id="btnFlip" title="Tap / Space">Flip</button>
-        <button id="btnNext" title="→ or swipe left">Next ▶︎</button>
-        <button id="btnShuffle" title="Shuffle deck">Shuffle</button>
+        <span class="pill">Keyboard: ← →</span>
+        <span class="pill">Space = Flip</span>
+        <button id="btnPrev">◀︎ Prev</button>
+        <button id="btnFlip">Flip</button>
+        <button id="btnNext">Next ▶︎</button>
+        <button id="btnShuffle">Shuffle</button>
       </div>
       <div style="min-width:180px;text-align:right">
         <div id="counter" class="muted">0 / 0</div>
-        <div class="progress" aria-hidden="true"><span id="bar"></span></div>
+        <div class="progress"><span id="bar"></span></div>
       </div>
     </div>
   </div>
 
   <script>
-    // ---------------- Data ----------------
+    // ---------------- Data: Directions & Places ----------------
+    // 20 vocab (10 directions + 10 places)
     const VOCAB = [
-      // Places & common nouns/verbs (for vocab drills)
-      { en:'station', ja:'駅', hira:'えき' },
-      { en:'hotel', ja:'ホテル', hira:'ほてる' },
-      { en:'restaurant', ja:'レストラン', hira:'れすとらん' },
-      { en:'store', ja:'店', hira:'みせ' },
-      { en:'bank', ja:'銀行', hira:'ぎんこう' },
-      { en:'park', ja:'公園', hira:'こうえん' },
-      { en:'bus', ja:'バス', hira:'ばす' },
-      { en:'train', ja:'電車', hira:'でんしゃ' },
-      { en:'ticket', ja:'切符', hira:'きっぷ' },
-      { en:'bill (check)', ja:'会計', hira:'かいけい' },
-      { en:'to pay', ja:'払う', hira:'はらう' },
-      { en:'to leave (depart)', ja:'出発する', hira:'しゅっぱつする' },
-      { en:'to arrive', ja:'到着する', hira:'とうちゃくする' },
-      { en:'to order', ja:'注文する', hira:'ちゅうもんする' },
-      { en:'to ask', ja:'たずねる', hira:'たずねる' },
-      { en:'to check', ja:'確認する', hira:'かくにんする' },
-      { en:'to walk', ja:'歩く', hira:'あるく' },
-      { en:'to take (a train)', ja:'乗る', hira:'のる' },
+      // Direction Words（方向を表す言葉）
+      { en:'left',      ja:'左',         hira:'ひだり' },
+      { en:'right',     ja:'右',         hira:'みぎ' },
+      { en:'straight',  ja:'まっすぐ',   hira:'まっすぐ' },
+      { en:'turn',      ja:'曲がる',     hira:'まがる' },
+      { en:'ahead',     ja:'前方',       hira:'まえ' },
+      { en:'next to',   ja:'隣',         hira:'となり' },
+      { en:'across from', ja:'向かい側', hira:'むかいがわ' },
+      { en:'beside',    ja:'そば',       hira:'そば' },
+      { en:'between',   ja:'間',         hira:'あいだ' },
+      { en:'corner',    ja:'角',         hira:'かど' },        // added to reach 10 direction words
+
+      // Places（場所）
+      { en:'station',       ja:'駅',       hira:'えき' },
+      { en:'bus stop',      ja:'バス停',   hira:'ばすてい' },
+      { en:'supermarket',   ja:'スーパーマーケット', hira:'スーパー' },
+      { en:'park',          ja:'公園',     hira:'こうえん' },
+      { en:'school',        ja:'学校',     hira:'がっこう' },
+      { en:'restaurant',    ja:'レストラン', hira:'れすとらん' },
+      { en:'hospital',      ja:'病院',     hira:'びょういん' },
+      { en:'post office',   ja:'郵便局',   hira:'ゆうびんきょく' },
+      { en:'airport',       ja:'空港',     hira:'くうこう' },
+      { en:'subway',        ja:'地下鉄',   hira:'ちかてつ' }, // added to reach 10 places
     ];
 
+    // 20 sentences (includes the 11 provided + 9 new)
     const SENTENCES = [
-      { en:'I bought a ticket at the station.', ja:'私は駅で切符を買いました。', hira:'わたしは えきで きっぷを かいました。' },
-      { en:'She is waiting for the bus.', ja:'彼女はバスを待っています。', hira:'かのじょは ばすを まっています。' },
-      { en:'They arrived at the hotel late.', ja:'彼らはホテルに遅れて到着しました。', hira:'かれらは ほてるに おくれて とうちゃくしました。' },
-      { en:'We ordered food at the restaurant.', ja:'私たちはレストランで料理を注文しました。', hira:'わたしたちは れすとらんで りょうりを ちゅうもんしました。' },
-      { en:'He is walking to the park.', ja:'彼は公園に歩いています。', hira:'かれは こうえんに あるいています。' },
-      { en:'Please check the time on the ticket.', ja:'切符の時間を確認してください。', hira:'きっぷの じかんを かくにんして ください。' },
-      { en:'I will take the train to the city.', ja:'私は電車で街に行きます。', hira:'わたしは でんしゃで まちに いきます。' },
-      { en:'We paid the bill at the restaurant.', ja:'私たちはレストランで会計をしました。', hira:'わたしたちは れすとらんで かいけいを しました。' },
-      { en:'The bus leaves at nine.', ja:'バスは9時に出発します。', hira:'ばすは くじに しゅっぱつします。' },
-      { en:'He asked a clerk for help.', ja:'彼は店員に助けを求めました。', hira:'かれは てんいんに たすけを もとめました。' },
-      { en:'The store opens at 10 a.m.', ja:'店は午前10時に開きます。', hira:'みせは ごぜん じゅうじに あきます。' },
-      { en:'She is paying money at the bank.', ja:'彼女は銀行でお金を払っています。', hira:'かのじょは ぎんこうで おかねを はらっています。' },
+      // originals
+      { en:'How do I get to the bus station?', ja:'バス停へはどうやって行けばいいですか？', hira:'ばすてい へ は どうやって いけば いいですか？' },
+      { en:'Where is the nearest subway?', ja:'一番近い地下鉄はどこですか？', hira:'いちばん ちかい ちかてつ は どこ ですか？' },
+      { en:'Is the restaurant far from here?', ja:'レストランはここから遠いですか？', hira:'れすとらん は ここ から とおい ですか？' },
+      { en:'The bus stop is on the left.', ja:'バス停は左側にあります。', hira:'ばすてい は ひだりがわ に あります。' },
+      { en:'Turn right at the corner.', ja:'角で右に曲がってください。', hira:'かど で みぎ に まがって ください。' },
+      { en:'Go straight ahead and you will see the supermarket.', ja:'まっすぐ進んでいくと、スーパーが見えます。', hira:'まっすぐ すすんで いく と、 すーぱー が みえます。' },
+      { en:'The park is next to the school.', ja:'公園は学校の隣にあります。', hira:'こうえん は がっこう の となり に あります。' },
+      { en:'The restaurant is across from the hospital.', ja:'レストランは病院の向かいにあります。', hira:'れすとらん は びょういん の むかい に あります。' },
+      { en:'The bus station is beside the airport.', ja:'バス駅は空港の横にあります。', hira:'ばすえき は くうこう の よこ に あります。' },
+      { en:'The subway station is between the park and the supermarket.', ja:'地下鉄の駅は公園とスーパーの間にあります。', hira:'ちかてつ の えき は こうえん と すーぱー の あいだ に あります。' },
+      { en:'The school is straight ahead.', ja:'学校はまっすぐ進んだ先にあります。', hira:'がっこう は まっすぐ すすんだ さき に あります。' },
+
+      // new 9
+      { en:'Turn left at the traffic light.', ja:'信号で左に曲がってください。', hira:'しんごう で ひだり に まがって ください。' },
+      { en:'Go straight and turn right at the corner.', ja:'まっすぐ行って、角で右に曲がってください。', hira:'まっすぐ いって、 かど で みぎ に まがって ください。' },
+      { en:'The post office is across from the station.', ja:'郵便局は駅の向かいにあります。', hira:'ゆうびんきょく は えき の むかい に あります。' },
+      { en:'The hospital is next to the restaurant.', ja:'病院はレストランの隣にあります。', hira:'びょういん は れすとらん の となり に あります。' },
+      { en:'Is the park far from the school?', ja:'公園は学校から遠いですか？', hira:'こうえん は がっこう から とおい ですか？' },
+      { en:'Go straight ahead until the station.', ja:'駅までまっすぐ進んでください。', hira:'えき まで まっすぐ すすんで ください。' },
+      { en:'Turn right after the bus stop.', ja:'バス停のあとで右に曲がってください。', hira:'ばすてい の あと で みぎ に まがって ください。' },
+      { en:'The airport is between the city and the sea.', ja:'空港は街と海の間にあります。', hira:'くうこう は まち と うみ の あいだ に あります。' },
+      { en:'The supermarket is beside the post office.', ja:'スーパーは郵便局のそばにあります。', hira:'すーぱー は ゆうびんきょく の そば に あります。' },
     ];
 
+    // 20 Q&A
     const QA = [
-      { q_en:'Where did you buy the ticket?', q_ja:'あなたはどこで切符を買いましたか？', q_hira:'あなたは どこで きっぷを かいましたか？',
-        a_en:'I bought it at the station.', a_ja:'駅で買いました。', a_hira:'えきで かいました。' },
-      { q_en:'Who is waiting for the bus?', q_ja:'バスを待っているのは誰ですか？', q_hira:'ばすを まっているのは だれですか？',
-        a_en:'She is waiting for the bus.', a_ja:'彼女がバスを待っています。', a_hira:'かのじょが ばすを まっています。' },
-      { q_en:'When did they arrive at the hotel?', q_ja:'彼らはいつホテルに到着しましたか？', q_hira:'かれらは いつ ほてるに とうちゃくしましたか？',
-        a_en:'They arrived late.', a_ja:'遅れて到着しました。', a_hira:'おくれて とうちゃくしました。' },
-      { q_en:'What did you order at the restaurant?', q_ja:'レストランで何を注文しましたか？', q_hira:'れすとらんで なにを ちゅうもんしましたか？',
-        a_en:'We ordered food.', a_ja:'料理を注文しました。', a_hira:'りょうりを ちゅうもんしました。' },
-      { q_en:'How do you go to the park?', q_ja:'あなたはどうやって公園に行きますか？', q_hira:'あなたは どうやって こうえんに いきますか？',
-        a_en:'I walk to the park.', a_ja:'歩いて公園に行きます。', a_hira:'あるいて こうえんに いきます。' },
-      { q_en:'What time does the bus leave?', q_ja:'バスは何時に出発しますか？', q_hira:'ばすは なんじに しゅっぱつしますか？',
-        a_en:'It leaves at nine.', a_ja:'9時に出発します。', a_hira:'くじに しゅっぱつします。' },
-      { q_en:'Who is paying at the bank?', q_ja:'銀行で払っているのは誰ですか？', q_hira:'ぎんこうで はらっているのは だれですか？',
-        a_en:'She is paying at the bank.', a_ja:'彼女が銀行で払っています。', a_hira:'かのじょが ぎんこうで はらっています。' },
-      { q_en:'Where are they going by train?', q_ja:'彼らは電車でどこに行きますか？', q_hira:'かれらは でんしゃで どこに いきますか？',
-        a_en:'They are going to the city.', a_ja:'街に行きます。', a_hira:'まちに いきます。' },
-      { q_en:'What time does the store open?', q_ja:'店は何時に開きますか？', q_hira:'みせは なんじに あきますか？',
-        a_en:'It opens at 10 a.m.', a_ja:'午前10時に開きます。', a_hira:'ごぜん じゅうじに あきます。' },
-      { q_en:'Who helped the customer?', q_ja:'誰がお客さんを助けましたか？', q_hira:'だれが おきゃくさんを たすけましたか？',
-        a_en:'The clerk helped the customer.', a_ja:'店員が客を助けました。', a_hira:'てんいんが きゃくを たすけました。' },
-      { q_en:'What did you check on the ticket?', q_ja:'切符で何を確認しましたか？', q_hira:'きっぷで なにを かくにんしましたか？',
-        a_en:'I checked the time.', a_ja:'時間を確認しました。', a_hira:'じかんを かくにんしました。' },
-      { q_en:'Who paid the bill?', q_ja:'誰が会計をしましたか？', q_hira:'だれが かいけいを しましたか？',
-        a_en:'We paid the bill.', a_ja:'私たちが会計をしました。', a_hira:'わたしたちが かいけいを しました。' },
+      { q_en:'Where is the bus stop?', q_ja:'バス停はどこですか？', q_hira:'ばすてい は どこ ですか？',
+        a_en:'It is on the left.', a_ja:'左側にあります。', a_hira:'ひだりがわ に あります。' },
+      { q_en:'How do I get to the station?', q_ja:'駅へはどうやって行きますか？', q_hira:'えき へ は どうやって いきますか？',
+        a_en:'Go straight and turn right.', a_ja:'まっすぐ行って右に曲がってください。', a_hira:'まっすぐ いって みぎ に まがって ください。' },
+      { q_en:'Where is the nearest subway?', q_ja:'一番近い地下鉄はどこですか？', q_hira:'いちばん ちかい ちかてつ は どこ ですか？',
+        a_en:'Across from the park.', a_ja:'公園の向かいです。', a_hira:'こうえん の むかい です。' },
+      { q_en:'Is the restaurant far from here?', q_ja:'レストランはここから遠いですか？', q_hira:'れすとらん は ここ から とおい ですか？',
+        a_en:'No, it is next to the school.', a_ja:'いいえ、学校の隣です。', a_hira:'いいえ、 がっこう の となり です。' },
+      { q_en:'Where is the post office?', q_ja:'郵便局はどこですか？', q_hira:'ゆうびんきょく は どこ ですか？',
+        a_en:'Beside the station.', a_ja:'駅のそばです。', a_hira:'えき の そば です。' },
+      { q_en:'Which way should I turn?', q_ja:'どちらに曲がればいいですか？', q_hira:'どちら に まがれば いい ですか？',
+        a_en:'Turn left at the corner.', a_ja:'角で左に曲がってください。', a_hira:'かど で ひだり に まがって ください。' },
+      { q_en:'Is the park ahead?', q_ja:'公園は前方ですか？', q_hira:'こうえん は ぜんぽう ですか？',
+        a_en:'Yes, go straight ahead.', a_ja:'はい、まっすぐ進んでください。', a_hira:'はい、 まっすぐ すすんで ください。' },
+      { q_en:'Where is the airport?', q_ja:'空港はどこですか？', q_hira:'くうこう は どこ ですか？',
+        a_en:'Between the city and the sea.', a_ja:'街と海の間です。', a_hira:'まち と うみ の あいだ です。' },
+      { q_en:'Is the school across from the hospital?', q_ja:'学校は病院の向かいですか？', q_hira:'がっこう は びょういん の むかい ですか？',
+        a_en:'No, it is next to the park.', a_ja:'いいえ、公園の隣です。', a_hira:'いいえ、 こうえん の となり です。' },
+      { q_en:'How can I reach the supermarket?', q_ja:'スーパーにはどうやって行けますか？', q_hira:'すーぱー には どうやって いけますか？',
+        a_en:'Go straight and you will see it.', a_ja:'まっすぐ進むと見えます。', a_hira:'まっすぐ すすむ と みえます。' },
+
+      { q_en:'Where is the restaurant?', q_ja:'レストランはどこですか？', q_hira:'れすとらん は どこ ですか？',
+        a_en:'Across from the post office.', a_ja:'郵便局の向かいです。', a_hira:'ゆうびんきょく の むかい です。' },
+      { q_en:'Is the bus stop near the school?', q_ja:'バス停は学校の近くですか？', q_hira:'ばすてい は がっこう の ちかく ですか？',
+        a_en:'Yes, it is beside the gate.', a_ja:'はい、門のそばです。', a_hira:'はい、 もん の そば です。' },
+      { q_en:'Should I go left or right?', q_ja:'左と右、どちらに行けばいいですか？', q_hira:'ひだり と みぎ、 どちら に いけば いい ですか？',
+        a_en:'Go right at the corner.', a_ja:'角で右に行ってください。', a_hira:'かど で みぎ に いって ください。' },
+      { q_en:'Is the airport far?', q_ja:'空港は遠いですか？', q_hira:'くうこう は とおい ですか？',
+        a_en:'No, it is ahead.', a_ja:'いいえ、前方です。', a_hira:'いいえ、 まえ です。' },
+      { q_en:'Where is the station entrance?', q_ja:'駅の入口はどこですか？', q_hira:'えき の いりぐち は どこ ですか？',
+        a_en:'Next to the bus stop.', a_ja:'バス停の隣です。', a_hira:'ばすてい の となり です。' },
+      { q_en:'Is the hospital between the park and the school?', q_ja:'病院は公園と学校の間ですか？', q_hira:'びょういん は こうえん と がっこう の あいだ ですか？',
+        a_en:'Yes, that is right.', a_ja:'はい、そのとおりです。', a_hira:'はい、 その とおり です。' },
+      { q_en:'Where is the post office from here?', q_ja:'ここから郵便局はどこですか？', q_hira:'ここ から ゆうびんきょく は どこ ですか？',
+        a_en:'Go straight ahead.', a_ja:'まっすぐ前です。', a_hira:'まっすぐ まえ です。' },
+      { q_en:'How can I get to the airport quickly?', q_ja:'空港へ早く行くにはどうすればいいですか？', q_hira:'くうこう へ はやく いく には どう すれば いい ですか？',
+        a_en:'Take the subway at the station.', a_ja:'駅で地下鉄に乗ってください。', a_hira:'えき で ちかてつ に のって ください。' },
+      { q_en:'Is the restaurant beside the station?', q_ja:'レストランは駅のそばですか？', q_hira:'れすとらん は えき の そば ですか？',
+        a_en:'Yes, beside the west exit.', a_ja:'はい、西口のそばです。', a_hira:'はい、 にしぐち の そば です。' },
+      { q_en:'Where should I meet you?', q_ja:'どこで会えばいいですか？', q_hira:'どこ で あえば いい ですか？',
+        a_en:'At the park entrance.', a_ja:'公園の入口で。', a_hira:'こうえん の いりぐち で。' },
     ];
+
+    // 20 Quiz (4 options each). Choices auto-generated from ALL_WORDS unless choices provided.
+    const ALL_WORDS = Array.from(new Set(VOCAB.map(v => v.en)));
+    function makeChoices(correct, n=4){
+      const pool = ALL_WORDS.filter(w => w!==correct);
+      // Shuffle
+      for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
+      const picks = pool.slice(0,n-1);
+      const arr = [correct, ...picks];
+      for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
+      return arr;
+    }
 
     const QUIZ = [
-      { cloze:'I ___ a ticket at the station.', answers:['bought'], ja:'私は駅で切符を買いました。', hira:'わたしは えきで きっぷを かいました。', full:'I bought a ticket at the station.' },
-      { cloze:'She is ___ for the bus.', answers:['waiting'], ja:'彼女はバスを待っています。', hira:'かのじょは ばすを まっています。', full:'She is waiting for the bus.' },
-      { cloze:'They ___ at the hotel late.', answers:['arrived'], ja:'彼らはホテルに遅れて到着しました。', hira:'かれらは ほてるに おくれて とうちゃくしました。', full:'They arrived at the hotel late.' },
-      { cloze:'We ___ food at the restaurant.', answers:['ordered'], ja:'私たちはレストランで料理を注文しました。', hira:'わたしたちは れすとらんで りょうりを ちゅうもんしました。', full:'We ordered food at the restaurant.' },
-      { cloze:'He is ___ to the park.', answers:['walking'], ja:'彼は公園に歩いています。', hira:'かれは こうえんに あるいています。', full:'He is walking to the park.' },
-      { cloze:'Please ___ the time on the ticket.', answers:['check'], ja:'切符の時間を確認してください。', hira:'きっぷの じかんを かくにんして ください。', full:'Please check the time on the ticket.' },
-      { cloze:'The bus ___ at nine.', answers:['leaves'], ja:'バスは9時に出発します。', hira:'ばすは くじに しゅっぱつします。', full:'The bus leaves at nine.' },
-      { cloze:'We ___ the bill at the restaurant.', answers:['paid'], ja:'私たちはレストランで会計をしました。', hira:'わたしたちは れすとらんで かいけいを しました。', full:'We paid the bill at the restaurant.' },
-      { cloze:'He ___ a clerk for help.', answers:['asked'], ja:'彼は店員に助けを求めました。', hira:'かれは てんいんに たすけを もとめました。', full:'He asked a clerk for help.' },
-      { cloze:'The store ___ at 10 a.m.', answers:['opens'], ja:'店は午前10時に開きます。', hira:'みせは ごぜん じゅうじに あきます。', full:'The store opens at 10 a.m.' },
-      { cloze:'She is ___ money at the bank.', answers:['paying'], ja:'彼女は銀行でお金を払っています。', hira:'かのじょは ぎんこうで おかねを はらっています。', full:'She is paying money at the bank.' },
-      { cloze:'I will ___ the train to the city.', answers:['take'], ja:'私は電車で街に行きます。', hira:'わたしは でんしゃで まちに いきます。', full:'I will take the train to the city.' },
+      { cloze:'Turn ___ at the corner.', answers:['left'],    ja:'角で左に曲がってください。', hira:'かど で ひだり に まがって ください。', full:'Turn left at the corner.' },
+      { cloze:'Go ___ ahead.', answers:['straight'],          ja:'まっすぐ進んでください。', hira:'まっすぐ すすんで ください。', full:'Go straight ahead.' },
+      { cloze:'The park is ___ the school.', answers:['next to'], ja:'公園は学校の隣にあります。', hira:'こうえん は がっこう の となり に あります。', full:'The park is next to the school.' },
+      { cloze:'The restaurant is ___ the hospital.', answers:['across from'], ja:'レストランは病院の向かいにあります。', hira:'れすとらん は びょういん の むかい に あります。', full:'The restaurant is across from the hospital.' },
+      { cloze:'The subway station is ___ the park and the supermarket.', answers:['between'], ja:'地下鉄の駅は公園とスーパーの間にあります。', hira:'ちかてつ の えき は こうえん と すーぱー の あいだ に あります。', full:'The subway station is between the park and the supermarket.' },
+      { cloze:'The bus stop is on the ___.', answers:['left'], ja:'バス停は左側にあります。', hira:'ばすてい は ひだりがわ に あります。', full:'The bus stop is on the left.' },
+      { cloze:'Turn ___ at the traffic light.', answers:['right'], ja:'信号で右に曲がってください。', hira:'しんごう で みぎ に まがって ください。', full:'Turn right at the traffic light.' },
+      { cloze:'Go straight and you will see the ___.', answers:['supermarket'], ja:'まっすぐ進むと、スーパーが見えます。', hira:'まっすぐ すすむ と、 すーぱー が みえます。', full:'Go straight and you will see the supermarket.' },
+      { cloze:'Meet me at the park ___.', answers:['entrance'], ja:'公園の入口で会いましょう。', hira:'こうえん の いりぐち で あいましょう。', full:'Meet me at the park entrance.' },
+      { cloze:'The post office is ___ the station.', answers:['beside'], ja:'郵便局は駅のそばにあります。', hira:'ゆうびんきょく は えき の そば に あります。', full:'The post office is beside the station.' },
+
+      { cloze:'Take the ___ at the station.', answers:['subway'], ja:'駅で地下鉄に乗ってください。', hira:'えき で ちかてつ に のって ください。', full:'Take the subway at the station.' },
+      { cloze:'The airport is ___.', answers:['ahead'], ja:'空港は前方です。', hira:'くうこう は まえ です。', full:'The airport is ahead.' },
+      { cloze:'Go straight to the ___.', answers:['station'], ja:'駅までまっすぐ行ってください。', hira:'えき まで まっすぐ いって ください。', full:'Go straight to the station.' },
+      { cloze:'The school is ___ the park.', answers:['across from'], ja:'学校は公園の向かいにあります。', hira:'がっこう は こうえん の むかい に あります。', full:'The school is across from the park.' },
+      { cloze:'Turn ___ at the ___.', answers:['left'], ja:'角で左に曲がってください。', hira:'かど で ひだり に まがって ください。', full:'Turn left at the corner.' , choices: makeChoices('left')},
+      { cloze:'The ___ is next to the restaurant.', answers:['hospital'], ja:'病院はレストランの隣です。', hira:'びょういん は れすとらん の となり です。', full:'The hospital is next to the restaurant.' },
+      { cloze:'Go ___ and turn right.', answers:['straight'], ja:'まっすぐ行って右に曲がってください。', hira:'まっすぐ いって みぎ に まがって ください。', full:'Go straight and turn right.' },
+      { cloze:'The ___ is between the city and the sea.', answers:['airport'], ja:'空港は街と海の間にあります。', hira:'くうこう は まち と うみ の あいだ に あります。', full:'The airport is between the city and the sea.' },
+      { cloze:'Is the ___ far from here?', answers:['restaurant'], ja:'レストランはここから遠いですか？', hira:'れすとらん は ここ から とおい ですか？', full:'Is the restaurant far from here?' },
+      { cloze:'The bus stop is by the ___.', answers:['station'], ja:'バス停は駅のそばです。', hira:'ばすてい は えき の そば です。', full:'The bus stop is by the station.' },
+    ].map(q => ({ ...q, choices: q.choices || makeChoices(q.answers[0]) }));
+
+    // 10 short readings
+    const READINGS = [
+      { en:'Go straight to the station. The station is big.', 
+        ja:'駅までまっすぐ行ってください。駅は大きいです。', 
+        hira:'えき まで まっすぐ いって ください。 えき は おおきい です。' },
+      { en:'The park is next to the school. Many children play there.', 
+        ja:'公園は学校の隣にあります。子どもがたくさん遊びます。', 
+        hira:'こうえん は がっこう の となり に あります。 こども が たくさん あそびます。' },
+      { en:'Turn right at the corner. You will see the restaurant.', 
+        ja:'角で右に曲がってください。レストランが見えます。', 
+        hira:'かど で みぎ に まがって ください。 れすとらん が みえます。' },
+      { en:'The post office is across from the station. It is easy to find.', 
+        ja:'郵便局は駅の向かいにあります。見つけやすいです。', 
+        hira:'ゆうびんきょく は えき の むかい に あります。 みつけ やすい です。' },
+      { en:'The hospital is beside the park. It is quiet there.', 
+        ja:'病院は公園のそばにあります。そこは静かです。', 
+        hira:'びょういん は こうえん の そば に あります。 そこ は しずか です。' },
+      { en:'Go straight and use the subway. It is fast.', 
+        ja:'まっすぐ行って地下鉄を使ってください。速いです。', 
+        hira:'まっすぐ いって ちかてつ を つかって ください。 はやい です。' },
+      { en:'The airport is between the city and the sea. Many planes come and go.', 
+        ja:'空港は街と海の間にあります。多くの飛行機が行き来します。', 
+        hira:'くうこう は まち と うみ の あいだ に あります。 おおく の ひこうき が いきき します。' },
+      { en:'Is the supermarket far? No, it is ahead on the left.', 
+        ja:'スーパーは遠いですか？いいえ、左の前方です。', 
+        hira:'すーぱー は とおい ですか？ いいえ、 ひだり の まえ です。' },
+      { en:'Meet me at the park entrance at three.', 
+        ja:'3時に公園の入口で会いましょう。', 
+        hira:'さんじ に こうえん の いりぐち で あいましょう。' },
+      { en:'The school is straight ahead. Turn right for the gym.', 
+        ja:'学校はまっすぐ前です。体育館は右に曲がってください。', 
+        hira:'がっこう は まっすぐ まえ です。 たいいくかん は みぎ に まがって ください。' },
     ];
 
-    const READING = [
-      { en:'The train will leave at 7:30.', ja:'電車は7時30分に出発します。', hira:'でんしゃは しちじ さんじゅっぷんに しゅっぱつします。' },
-      { en:'Please show your ticket at the entrance.', ja:'入り口で切符を見せてください。', hira:'いりぐちで きっぷを みせてください。' },
-      { en:'The store will be closed on Sunday.', ja:'店は日曜日に休みです。', hira:'みせは にちようびに やすみです。' },
-      { en:'Welcome to City Hotel. Free breakfast is included.', ja:'シティホテルへようこそ。朝食は無料です。', hira:'してぃほてるへ ようこそ。ちょうしょくは むりょうです。' },
-      { en:'Big Sale! All shoes are 50% off this weekend.', ja:'大セール！今週末は靴が半額です。', hira:'だいせーる！こんしゅうまつは くつが はんがくです。' },
-      { en:'Notice: The library will close at 5 p.m. today.', ja:'お知らせ：図書館は今日午後5時に閉まります。', hira:'おしらせ：としょかんは きょう ごご ごじに しまります。' },
-      { en:'Email: Your flight has been delayed by one hour.', ja:'メール：あなたの飛行機は1時間遅れました。', hira:'めーる：あなたの ひこうきは いちじかん おくれました。' },
-      { en:'Caution: Please do not leave bags unattended.', ja:'注意：荷物を置きっぱなしにしないでください。', hira:'ちゅうい：にもつを おきっぱなしに しないで ください。' },
-      { en:'Meeting Room B is on the second floor.', ja:'会議室Bは2階にあります。', hira:'かいぎしつ びーは にかいに あります。' },
-      { en:'Lunch special: Soup and sandwich for five dollars.', ja:'ランチスペシャル：スープとサンドイッチが5ドルです。', hira:'らんち すぺしゃる：すーぷと さんどいっちが ごどるです。' },
-      { en:'Message: I will arrive at the station at 6:15.', ja:'メッセージ：私は6時15分に駅に着きます。', hira:'めっせーじ：わたしは ろくじ じゅうごふんに えきに つきます。' },
-      { en:'Announcement: The bus to the airport leaves from Gate 3.', ja:'案内：空港行きのバスは3番ゲートから出ます。', hira:'あんない：くうこういきの ばすは さんばん げーとから でます。' },
+    // 5 diary prompts with hints
+    const DIARY = [
+      { en:'Write about how you go to school.',
+        ja:'学校への行き方について書きましょう。',
+        hira:'がっこう への いきかた について かきましょう。',
+        hints:[
+          'Use: go straight / turn left / turn right',
+          'Mention: station / bus stop / park',
+          'Example opener: I go straight to the bus stop...'
+        ] },
+      { en:'Describe a place near your house.',
+        ja:'家の近くの場所を紹介しましょう。',
+        hira:'いえ の ちかく の ばしょ を しょうかい しましょう。',
+        hints:[
+          'Use: next to / across from / beside',
+          'Place: supermarket / school / restaurant',
+          'Add distance: near / far'
+        ] },
+      { en:'Give directions to your favorite restaurant.',
+        ja:'お気に入りのレストランへの行き方を書きましょう。',
+        hira:'おきにいり の れすとらん への いきかた を かきましょう。',
+        hints:[
+          'Start at: station or bus stop',
+          'Use: turn at the corner / go straight ahead',
+          'Finish: It is on the left/right.'
+        ] },
+      { en:'Write about a time you got lost.',
+        ja:'迷ったときのことを書きましょう。',
+        hira:'まよった とき の こと を かきましょう。',
+        hints:[
+          'Question you asked: Where is the ___?',
+          'What helped: map / signs / people',
+          'How you felt: worried / okay'
+        ] },
+      { en:'Plan a trip from the station to the airport.',
+        ja:'駅から空港までの計画を書きましょう。',
+        hira:'えき から くうこう まで の けいかく を かきましょう。',
+        hints:[
+          'Transport: subway / bus',
+          'Landmarks: park / hospital / post office',
+          'Timing: Go straight for 10 minutes, then turn right.'
+        ] },
     ];
 
     // -------------- State & Elements --------------
@@ -236,225 +352,124 @@
       mcArea: document.getElementById('mcArea'),
     };
 
-    // -------------- Helpers --------------
-    function shuffle(arr){
-      for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]}
-      return arr;
-    }
-    function uniqueAnswersFromQuiz(){
-      const set = new Set();
-      QUIZ.forEach(q => q.answers.forEach(a => set.add(a.toLowerCase())));
-      return Array.from(set);
-    }
-    const ALL_QUIZ_WORDS = uniqueAnswersFromQuiz();
+    // Helpers
+    function shuffle(arr){ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]} return arr; }
 
-    function mcOptionsFor(item, n=4){
-      const corrects = item.answers.map(a=>a.toLowerCase());
-      const correct = corrects[0];
-      const pool = ALL_QUIZ_WORDS.filter(v => !corrects.includes(v));
-      shuffle(pool);
-      const need = Math.max(0, n-1);
-      const choices = [correct, ...pool.slice(0, need)];
-      return shuffle(choices);
-    }
-
-    // -------------- Build Decks --------------
+    // Build deck
     function buildDeck(){
-      const mode = els.mode.value;
+      const mode=els.mode.value;
       if(mode==='vocab-j2e' || mode==='vocab-e2j'){
-        deck = VOCAB.map(x=>({
+        const combined=[...VOCAB];
+        deck=combined.map(x=>({
           type:'vocab',
-          front: mode==='vocab-j2e' ? x.ja : x.en,
-          back:  mode==='vocab-j2e' ? x.en : x.ja,
-          hira: x.hira,
-          sideLabelFront: mode==='vocab-j2e' ? 'Japanese → English' : 'English → Japanese',
-          sideLabelBack:  mode==='vocab-j2e' ? 'English' : 'Japanese',
+          front:mode==='vocab-j2e'?`${x.ja}`:`${x.en}`,
+          back:mode==='vocab-j2e'?`${x.en} / ${x.ja}`:`${x.ja} / ${x.en}`,
+          hira:x.hira,
+          sideLabelFront:mode==='vocab-j2e'?'Japanese → English':'English → Japanese',
+          sideLabelBack:'Answer'
         }));
       } else if(mode==='sentences'){
-        deck = SENTENCES.map(s=>({
+        deck=SENTENCES.map(s=>({
           type:'sentence',
-          front: s.ja,
-          back: s.en + '\\n' + s.ja,
-          hira: s.hira,
-          sideLabelFront: 'Japanese sentence',
-          sideLabelBack: 'Answer (EN + JA)',
+          front:s.ja,
+          back:s.en+'\n'+s.ja,
+          hira:s.hira,
+          sideLabelFront:'Japanese sentence',
+          sideLabelBack:'Answer'
         }));
       } else if(mode==='qa'){
-        deck = QA.map(q=>({
+        deck=QA.map(q=>({
           type:'qa',
-          front: q.q_ja,
-          back: q.a_en + '\\n' + q.a_ja,
-          hira: q.q_hira + '\\n' + q.a_hira,
-          sideLabelFront: 'Question (JA)',
-          sideLabelBack: 'Answer (EN + JA)',
+          front:q.q_ja,
+          back:q.a_en+'\n'+q.a_ja,
+          hira:q.q_hira+'\n'+q.a_hira,
+          sideLabelFront:'Question (JA)',
+          sideLabelBack:'Answer'
         }));
       } else if(mode==='quiz'){
-        deck = QUIZ.map(q=>{
-          const choices = mcOptionsFor(q, 4);
-          return {
-            type:'quiz',
-            front: q.cloze,
-            back: q.full + '\\n' + q.ja,
-            hira: q.hira,
-            answers: q.answers,
-            choices,
-            sideLabelFront: 'Choose the missing word',
-            sideLabelBack: 'Answer (EN + JA)',
-          };
-        });
-      } else if(mode==='reading'){
-        deck = READING.map(r=>({
-          type:'reading',
-          front: r.en,
-          back: r.en + '\\n' + r.ja,
-          hira: r.hira,
-          sideLabelFront: 'Reading (EN)',
-          sideLabelBack: 'Reading (EN + JA)',
+        deck=QUIZ.map(q=>({
+          type:'quiz',
+          front:q.cloze,
+          back:q.full+'\n'+q.ja,
+          hira:q.hira,
+          answers:q.answers,
+          choices:q.choices,
+          sideLabelFront:'Choose',
+          sideLabelBack:'Answer'
         }));
-      }
-      index = 0; showingFront = true; render();
+      } else if(mode==='reading'){
+        deck=READINGS.map(r=>({
+          type:'reading',
+          front:r.ja,
+          back:r.en+'\n'+r.ja,
+          hira:r.hira,
+          sideLabelFront:'Reading (JA)',
+          sideLabelBack:'Reading (EN+JA)'
+        }));
+      } else if(mode==='diary'){
+        deck=DIARY.map(d=>({
+          type:'diary',
+          front:d.ja,
+          back:d.en+'\n'+(d.hints?('Hints:\n- '+d.hints.join('\n- ')):''),
+          hira:d.hira,
+          sideLabelFront:'Diary idea (JA)',
+          sideLabelBack:'EN + Hints'
+        }));
+      } else { deck=[]; }
+      index=0;showingFront=true;render();
     }
 
-    // -------------- Render --------------
+    // Render
     function render(){
-      if(deck.length===0){ els.main.textContent='—'; els.sub.textContent='No cards'; els.counter.textContent='0 / 0'; return; }
-      const item = deck[index];
-      const mode = els.mode.value;
-      els.label.textContent = showingFront ? item.sideLabelFront : item.sideLabelBack;
-      const content = showingFront ? item.front : item.back;
+      if(deck.length===0){els.main.textContent='—'; els.sub.textContent='Choose a mode'; return;}
+      const item=deck[index];
+      els.label.textContent=showingFront?item.sideLabelFront:item.sideLabelBack;
+      const content=showingFront?item.front:item.back;
+      if(!showingFront && content.includes('\n')){
+        const [en,jaOrRest]=content.split('\n');
+        els.main.innerHTML=`<div style="font-size:22px;font-weight:700;white-space:pre-line">${en}</div><div class="sub" style="white-space:pre-line">${jaOrRest}</div>`;
+      } else { els.main.textContent=content; }
+      if(item.hira){ els.hira.classList.remove('hidden'); els.hira.textContent=item.hira; } 
+      else { els.hira.classList.add('hidden'); els.hira.textContent=''; }
 
-      // Main content & JA + hira logic
-      if((!showingFront) && (item.type==='qa' || item.type==='quiz' || item.type==='sentence' || item.type==='reading') && content.includes('\\n')){
-        const [line1, line2] = content.split('\\n'); // EN, JA
-        els.main.innerHTML = `<div style="font-size:22px;font-weight:700" class="${item.type==='reading'?'small':''}">${line1}</div>
-                              <div class="sub ${item.type==='reading'?'small':''}" style="margin-top:8px">${line2}</div>`;
-        if(item.hira){
-          els.hira.classList.remove('hidden');
-          if(item.type==='qa'){
-            const parts = item.hira.split('\\n');
-            const hiraToShow = showingFront ? parts[0] : (parts[1] || '');
-            els.hira.textContent = hiraToShow;
-          } else {
-            els.hira.textContent = item.hira;
-          }
-        } else { els.hira.classList.add('hidden'); els.hira.textContent=''; }
-      } else {
-        els.main.innerHTML = `<div class="${item.type==='reading'?'small':''}">${content}</div>`;
-        if(showingFront && (item.type==='vocab' && els.mode.value==='vocab-j2e' || item.type==='sentence' || item.type==='qa')){
-          if(item.hira){
-            els.hira.classList.remove('hidden');
-            if(item.type==='qa' && item.hira.includes('\\n')){
-              els.hira.textContent = item.hira.split('\\n')[0];
+      if(item.type==='quiz' && showingFront){
+        els.mcArea.classList.remove('hidden'); els.mcArea.innerHTML='';
+        item.choices.forEach(opt=>{
+          const btn=document.createElement('button'); btn.className='optbtn'; btn.textContent=opt;
+          btn.addEventListener('click',e=>{
+            e.preventDefault();
+            const norm=s=>s.toLowerCase().trim();
+            const isCorrect=item.answers.map(a=>norm(a)).includes(norm(opt));
+            if(isCorrect){
+              btn.classList.add('ok');
+              [...els.mcArea.querySelectorAll('button')].forEach(b=>b.disabled=true);
+              setTimeout(()=>{showingFront=false;render();},300);
             } else {
-              els.hira.textContent = item.hira;
+              btn.classList.add('bad'); btn.disabled=true;
             }
-          } else { els.hira.classList.add('hidden'); els.hira.textContent=''; }
-        } else {
-          els.hira.classList.add('hidden');
-          els.hira.textContent='';
-        }
-      }
-
-      // QUIZ MC only on front of quiz
-      if(mode==='quiz' && item.type==='quiz' && showingFront){
-        els.sub.textContent = 'Choose the correct word.';
-        els.mcArea.classList.remove('hidden');
-        els.mcArea.innerHTML = '';
-        item.choices.forEach(opt => {
-          const btn = document.createElement('button');
-          btn.className = 'optbtn';
-          btn.textContent = opt;
-          btn.addEventListener('click', (e)=>{
-            e.preventDefault(); e.stopPropagation();
-            const norm = (s)=>s.toLowerCase().trim();
-            const isCorrect = item.answers.map(a=>norm(a)).includes(norm(opt));
-            const allBtns = [...els.mcArea.querySelectorAll('button')];
-            allBtns.forEach(b=>b.disabled=true);
-            if(isCorrect){ btn.classList.add('ok'); } else { btn.classList.add('bad'); }
-            const correctBtn = allBtns.find(b => item.answers.map(a=>norm(a)).includes(norm(b.textContent)));
-            if(correctBtn) correctBtn.classList.add('ok');
-            setTimeout(()=>{ showingFront = false; render(); }, 350);
-          }, { passive:false });
+          });
           els.mcArea.appendChild(btn);
         });
-      } else {
-        els.mcArea.classList.add('hidden');
-        els.mcArea.innerHTML = '';
-        if(item.type==='quiz' && showingFront){
-          els.sub.textContent = 'Choose the correct word.';
-        } else {
-          els.sub.textContent = 'Tap / Space to flip · Swipe / ← → to navigate';
-        }
-      }
-
-      // Footer counters
-      els.counter.textContent = `${index+1} / ${deck.length}`;
-      els.bar.style.width = `${((index+1)/deck.length)*100}%`;
-
-      setHash();
+      } else { els.mcArea.classList.add('hidden'); els.mcArea.innerHTML=''; }
+      els.counter.textContent=`${index+1} / ${deck.length}`; els.bar.style.width=`${((index+1)/deck.length)*100}%`;
     }
 
-    // -------------- Navigation --------------
-    function prev(){ index = (index-1+deck.length)%deck.length; showingFront=true; render(); }
-    function next(){ index = (index+1)%deck.length; showingFront=true; render(); }
-    function flip(){ showingFront = !showingFront; render(); }
-    function shuffleDeck(){ deck = shuffle(deck); index=0; showingFront=true; render(); }
+    // Navigation
+    function prev(){index=(index-1+deck.length)%deck.length;showingFront=true;render();}
+    function next(){index=(index+1)%deck.length;showingFront=true;render();}
+    function flip(){showingFront=!showingFront;render();}
+    function shuffleDeck(){deck=shuffle(deck);index=0;showingFront=true;render();}
 
-    // -------------- URL Hash --------------
-    function setHash(){ location.hash = `#${els.mode.value}:${index}`; }
-    function readHash(){
-      const h = location.hash.replace('#','');
-      if(!h) return;
-      const [m, i] = h.split(':');
-      if(m && [...els.mode.options].some(o=>o.value===m)) els.mode.value = m;
-      if(i && !Number.isNaN(+i)) index = Math.max(0, Math.min(deck.length-1, +i));
-    }
-
-    // -------------- Events --------------
-    els.mode.addEventListener('change', ()=>{ buildDeck(); setHash(); });
-    document.getElementById('btnPrev').addEventListener('click', prev);
-    document.getElementById('btnNext').addEventListener('click', next);
-    document.getElementById('btnFlip').addEventListener('click', flip);
-    document.getElementById('btnShuffle').addEventListener('click', shuffleDeck);
-
-    // Keyboard
-    window.addEventListener('keydown', (e)=>{
-      if(e.code==='ArrowLeft'){ e.preventDefault(); prev(); }
-      else if(e.code==='ArrowRight'){ e.preventDefault(); next(); }
-      else if(e.code==='Space'){ e.preventDefault(); flip(); }
-      else if(e.key==='S' || e.key==='s'){ e.preventDefault(); shuffleDeck(); }
-      else if(e.key==='1' && els.mode.value==='quiz'){ const b=els.mcArea.querySelectorAll('button')[0]; if(b) b.click(); }
-      else if(e.key==='2' && els.mode.value==='quiz'){ const b=els.mcArea.querySelectorAll('button')[1]; if(b) b.click(); }
-      else if(e.key==='3' && els.mode.value==='quiz'){ const b=els.mcArea.querySelectorAll('button')[2]; if(b) b.click(); }
-      else if(e.key==='4' && els.mode.value==='quiz'){ const b=els.mcArea.querySelectorAll('button')[3]; if(b) b.click(); }
-    });
-
-    // Click/Touch to flip (disabled on Quiz front)
-    document.getElementById('card').addEventListener('click', (e)=>{
-      if(els.mode.value==='quiz' && showingFront) return;
-      flip();
-    }, { passive:true });
-
-    // Swipe
-    let touchStartX=null, touchStartY=null;
-    document.getElementById('card').addEventListener('touchstart', (e)=>{
-      const t=e.changedTouches[0]; touchStartX=t.clientX; touchStartY=t.clientY;
-    }, {passive:true});
-    document.getElementById('card').addEventListener('touchend', (e)=>{
-      const t=e.changedTouches[0]; if(touchStartX===null) return;
-      const dx=t.clientX - touchStartX; const dy=t.clientY - touchStartY;
-      if(Math.abs(dx)>50 && Math.abs(dx)>Math.abs(dy)){
-        if(dx>0) prev(); else next();
-      } else if(Math.abs(dy)<10 && Math.abs(dx)<10){
-        if(!(els.mode.value==='quiz' && showingFront)) flip();
-      }
-      touchStartX=touchStartY=null;
-    }, {passive:true});
+    // Events
+    els.mode.addEventListener('change',buildDeck);
+    document.getElementById('btnPrev').addEventListener('click',prev);
+    document.getElementById('btnNext').addEventListener('click',next);
+    document.getElementById('btnFlip').addEventListener('click',flip);
+    document.getElementById('btnShuffle').addEventListener('click',shuffleDeck);
+    window.addEventListener('keydown',e=>{if(e.code==='ArrowLeft')prev(); else if(e.code==='ArrowRight')next(); else if(e.code==='Space'){e.preventDefault();flip();}});
 
     // Init
     buildDeck();
-    readHash();
-    render();
   </script>
 </body>
 </html>
