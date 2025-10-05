@@ -3,90 +3,44 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Boo-riculum – Directions & Places</title>
+  <title>Boo-riculum – Directions & Places (JP→EN)</title>
   <link rel="icon" type="image/png" href="booha-ghost.png">
   <style>
-    :root { --ink:#222; --muted:#444; --accent:#0b78ff; --ok:#22c55e; --bad:#ef4444; }
+    :root { --ink:#222; --muted:#444; --accent:#0b78ff; }
     html,body{height:100%;}
     body{
-      margin:0;
-      font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;
-      color:var(--ink);
-      background:url('booha-card.jpg') center/cover fixed no-repeat;
+      margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Helvetica,Arial,sans-serif;color:var(--ink);
+      background:url('Booha card.jpg') center/cover fixed no-repeat;
     }
     .wrap{max-width:900px;margin:0 auto;padding:16px 16px 24px;}
-    header{
-      display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;
-      margin-bottom:12px;background:rgba(255,255,255,0.88);padding:12px 16px;
-      border-radius:16px;box-shadow:0 4px 10px rgba(0,0,0,0.15)
-    }
-    header h1{
-      font-size:18px;margin:0;font-weight:700;letter-spacing:.2px;
-      background:linear-gradient(90deg,#7dd3fc,#60a5fa,#a78bfa,#f472b6);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-      display:flex;align-items:center;gap:8px
-    }
-    header h1 img{height:28px;width:auto;}
-    .controls{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
-    select,button{
-      background:rgba(255,255,255,0.95);color:var(--ink);border:1px solid #ccc;
-      border-radius:12px;padding:10px 12px;font-size:14px;
-      box-shadow:0 2px 5px rgba(0,0,0,0.08)
-    }
-    button{cursor:pointer;transition:transform .05s ease, background .2s}
-    button:hover{background:#f0f0f0}
-    button:active{transform:scale(.98)}
-    .pill{border:1px solid #ccc;border-radius:999px;padding:6px 10px;font-size:12px;background:rgba(255,255,255,0.7)}
-    .card{
-      user-select:none;-webkit-user-select:none;display:flex;flex-direction:column;justify-content:center;align-items:center;
-      text-align:center;background:url('booha-card.jpg') center/cover no-repeat;
-      border:1px solid #ccc;border-radius:24px;min-height:56vh;margin:16px auto;padding:22px 18px 28px;
-      box-shadow:0 10px 40px rgba(0,0,0,.25); position:relative;
-    }
-    .brand{
-      position:absolute;top:10px;left:12px;display:flex;gap:8px;align-items:center;
-      background:rgba(255,255,255,0.85);padding:6px 10px;border-radius:12px;border:1px solid #ddd;
-      box-shadow:0 2px 6px rgba(0,0,0,0.08); font-weight:800; letter-spacing:.2px;
-    }
-    .brand img{height:20px;width:auto}
-    .brand span{background:linear-gradient(90deg,#7dd3fc,#60a5fa,#a78bfa,#f472b6);
-      -webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-    .label{color:var(--muted);font-size:13px;letter-spacing:.3px;margin-bottom:8px;
-      background:rgba(255,255,255,0.7);padding:4px 8px;border-radius:8px}
-    .main{font-size:28px;line-height:1.25;font-weight:800;margin:8px 0 10px;
-      background:rgba(255,255,255,0.86);padding:8px 12px;border-radius:12px}
-    .sub{font-size:18px;opacity:.92;margin:0 0 6px;background:rgba(255,255,255,0.65);
-      padding:4px 10px;border-radius:8px}
-    .hira{font-size:18px;color:var(--accent);opacity:.95;background:rgba(255,255,255,0.75);
-      padding:4px 10px;border-radius:8px}
-    .muted{color:var(--muted)}
-    .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
-    .footer{
-      display:flex;align-items:center;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:13px;
-      background:rgba(255,255,255,0.85);padding:8px 12px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,0.1)
-    }
+    header{display:flex;gap:12px;align-items:center;justify-content:space-between;margin-bottom:12px;background:rgba(255,255,255,.88);padding:12px 16px;border-radius:16px;box-shadow:0 4px 10px rgba(0,0,0,.15)}
+    header h1{font-size:18px;margin:0;font-weight:700;letter-spacing:.2px;background:linear-gradient(90deg,#7dd3fc,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;gap:8px;align-items:center}
+    header h1 img{height:28px}
+    select,button{background:rgba(255,255,255,.95);color:var(--ink);border:1px solid #ccc;border-radius:12px;padding:10px 12px;font-size:14px;box-shadow:0 2px 5px rgba(0,0,0,.08)}
+    .card{user-select:none;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;background:url('Booha card.jpg') center/cover no-repeat;border:1px solid #ccc;border-radius:24px;min-height:56vh;margin:16px auto;padding:22px 18px 28px;box-shadow:0 10px 40px rgba(0,0,0,.25);position:relative}
+    .brand{position:absolute;top:10px;left:12px;display:flex;gap:8px;align-items:center;background:rgba(255,255,255,.85);padding:6px 10px;border-radius:12px;border:1px solid #ddd;box-shadow:0 2px 6px rgba(0,0,0,.08);font-weight:800;letter-spacing:.2px}
+    .label{color:var(--muted);font-size:13px;margin-bottom:8px;background:rgba(255,255,255,.7);padding:4px 8px;border-radius:8px}
+    .main{font-size:28px;line-height:1.25;font-weight:800;margin:8px 0 10px;background:rgba(255,255,255,.86);padding:8px 12px;border-radius:12px;white-space:pre-line}
+    .sub{font-size:18px;opacity:.92;margin:0 0 6px;background:rgba(255,255,255,.65);padding:4px 10px;border-radius:8px}
+    .hira{font-size:18px;color:var(--accent);opacity:.95;background:rgba(255,255,255,.75);padding:4px 10px;border-radius:8px}
+    .footer{display:flex;align-items:center;justify-content:space-between;margin-top:8px;color:var(--muted);font-size:13px;background:rgba(255,255,255,.85);padding:8px 12px;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
     .progress{height:8px;border-radius:999px;background:#eee;overflow:hidden}
     .progress>span{display:block;height:100%;background:linear-gradient(90deg,#7dd3fc,#60a5fa,#a78bfa,#f472b6);width:0%}
-    .hidden{display:none}
-    .options{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:12px}
-    .optbtn{border:1px solid #ccc;border-radius:12px;padding:10px 14px;background:rgba(255,255,255,0.95);cursor:pointer}
-    .optbtn.ok{background:#dcfce7;border-color:#86efac;color:#166534}
-    .optbtn.bad{background:#fee2e2;border-color:#fca5a5;color:#991b1b}
+    .row{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+    .pill{border:1px solid #ccc;border-radius:999px;padding:6px 10px;font-size:12px;background:rgba(255,255,255,.7)}
   </style>
 </head>
 <body>
   <div class="wrap">
     <header>
-      <h1><img src="booha-ghost.png" alt="Booha ghost"> Boo-riculum – Directions & Places</h1>
+      <h1><img src="booha-ghost.png" alt="Booha ghost"> Boo-riculum – Directions & Places (JP→EN)</h1>
       <div class="controls">
         <select id="mode" aria-label="Mode">
-          <option value="vocab-j2e">Vocab: 🇯🇵 → 🇺🇸</option>
-          <option value="vocab-e2j">Vocab: 🇺🇸 → 🇯🇵</option>
-          <option value="sentences">Sentences (practice)</option>
-          <option value="qa">Questions (practice)</option>
-          <option value="quiz">Quiz (multiple choice)</option>
-          <option value="reading">Reading</option>
-          <option value="diary">Diary Prompts</option>
+          <option value="vocab">Vocab (JP→EN)</option>
+          <option value="sentences">Sentences (JP→EN)</option>
+          <option value="qa">Q&A (JP→EN)</option>
+          <option value="reading">Reading (JP→EN)</option>
+          <option value="diary">Diary (JP→EN)</option>
         </select>
       </div>
     </header>
@@ -95,9 +49,8 @@
       <div class="brand"><img src="booha-ghost.png" alt="Booha ghost"><span>Boo-riculum</span></div>
       <div id="label" class="label">Front</div>
       <div id="main" class="main">—</div>
-      <div id="sub" class="sub muted">Tap or press Space to flip</div>
+      <div id="sub" class="sub">Space = Flip</div>
       <div id="hira" class="hira hidden"></div>
-      <div id="mcArea" class="options hidden"></div>
     </div>
 
     <div class="footer">
@@ -117,37 +70,31 @@
   </div>
 
   <script>
-    // ---------------- Data: Directions & Places ----------------
-    // 20 vocab (10 directions + 10 places)
+    // Same content as main app:
     const VOCAB = [
-      // Direction Words（方向を表す言葉）
-      { en:'left',      ja:'左',         hira:'ひだり' },
-      { en:'right',     ja:'右',         hira:'みぎ' },
-      { en:'straight',  ja:'まっすぐ',   hira:'まっすぐ' },
-      { en:'turn',      ja:'曲がる',     hira:'まがる' },
-      { en:'ahead',     ja:'前方',       hira:'まえ' },
-      { en:'next to',   ja:'隣',         hira:'となり' },
+      { en:'left', ja:'左', hira:'ひだり' },
+      { en:'right', ja:'右', hira:'みぎ' },
+      { en:'straight', ja:'まっすぐ', hira:'まっすぐ' },
+      { en:'turn', ja:'曲がる', hira:'まがる' },
+      { en:'ahead', ja:'前方', hira:'まえ' },
+      { en:'next to', ja:'隣', hira:'となり' },
       { en:'across from', ja:'向かい側', hira:'むかいがわ' },
-      { en:'beside',    ja:'そば',       hira:'そば' },
-      { en:'between',   ja:'間',         hira:'あいだ' },
-      { en:'corner',    ja:'角',         hira:'かど' },        // added to reach 10 direction words
-
-      // Places（場所）
-      { en:'station',       ja:'駅',       hira:'えき' },
-      { en:'bus stop',      ja:'バス停',   hira:'ばすてい' },
-      { en:'supermarket',   ja:'スーパーマーケット', hira:'スーパー' },
-      { en:'park',          ja:'公園',     hira:'こうえん' },
-      { en:'school',        ja:'学校',     hira:'がっこう' },
-      { en:'restaurant',    ja:'レストラン', hira:'れすとらん' },
-      { en:'hospital',      ja:'病院',     hira:'びょういん' },
-      { en:'post office',   ja:'郵便局',   hira:'ゆうびんきょく' },
-      { en:'airport',       ja:'空港',     hira:'くうこう' },
-      { en:'subway',        ja:'地下鉄',   hira:'ちかてつ' }, // added to reach 10 places
+      { en:'beside', ja:'そば', hira:'そば' },
+      { en:'between', ja:'間', hira:'あいだ' },
+      { en:'corner', ja:'角', hira:'かど' },
+      { en:'station', ja:'駅', hira:'えき' },
+      { en:'bus stop', ja:'バス停', hira:'ばすてい' },
+      { en:'supermarket', ja:'スーパーマーケット', hira:'スーパー' },
+      { en:'park', ja:'公園', hira:'こうえん' },
+      { en:'school', ja:'学校', hira:'がっこう' },
+      { en:'restaurant', ja:'レストラン', hira:'れすとらん' },
+      { en:'hospital', ja:'病院', hira:'びょういん' },
+      { en:'post office', ja:'郵便局', hira:'ゆうびんきょく' },
+      { en:'airport', ja:'空港', hira:'くうこう' },
+      { en:'subway', ja:'地下鉄', hira:'ちかてつ' },
     ];
 
-    // 20 sentences (includes the 11 provided + 9 new)
     const SENTENCES = [
-      // originals
       { en:'How do I get to the bus station?', ja:'バス停へはどうやって行けばいいですか？', hira:'ばすてい へ は どうやって いけば いいですか？' },
       { en:'Where is the nearest subway?', ja:'一番近い地下鉄はどこですか？', hira:'いちばん ちかい ちかてつ は どこ ですか？' },
       { en:'Is the restaurant far from here?', ja:'レストランはここから遠いですか？', hira:'れすとらん は ここ から とおい ですか？' },
@@ -159,8 +106,6 @@
       { en:'The bus station is beside the airport.', ja:'バス駅は空港の横にあります。', hira:'ばすえき は くうこう の よこ に あります。' },
       { en:'The subway station is between the park and the supermarket.', ja:'地下鉄の駅は公園とスーパーの間にあります。', hira:'ちかてつ の えき は こうえん と すーぱー の あいだ に あります。' },
       { en:'The school is straight ahead.', ja:'学校はまっすぐ進んだ先にあります。', hira:'がっこう は まっすぐ すすんだ さき に あります。' },
-
-      // new 9
       { en:'Turn left at the traffic light.', ja:'信号で左に曲がってください。', hira:'しんごう で ひだり に まがって ください。' },
       { en:'Go straight and turn right at the corner.', ja:'まっすぐ行って、角で右に曲がってください。', hira:'まっすぐ いって、 かど で みぎ に まがって ください。' },
       { en:'The post office is across from the station.', ja:'郵便局は駅の向かいにあります。', hira:'ゆうびんきょく は えき の むかい に あります。' },
@@ -172,7 +117,6 @@
       { en:'The supermarket is beside the post office.', ja:'スーパーは郵便局のそばにあります。', hira:'すーぱー は ゆうびんきょく の そば に あります。' },
     ];
 
-    // 20 Q&A
     const QA = [
       { q_en:'Where is the bus stop?', q_ja:'バス停はどこですか？', q_hira:'ばすてい は どこ ですか？',
         a_en:'It is on the left.', a_ja:'左側にあります。', a_hira:'ひだりがわ に あります。' },
@@ -194,7 +138,6 @@
         a_en:'No, it is next to the park.', a_ja:'いいえ、公園の隣です。', a_hira:'いいえ、 こうえん の となり です。' },
       { q_en:'How can I reach the supermarket?', q_ja:'スーパーにはどうやって行けますか？', q_hira:'すーぱー には どうやって いけますか？',
         a_en:'Go straight and you will see it.', a_ja:'まっすぐ進むと見えます。', a_hira:'まっすぐ すすむ と みえます。' },
-
       { q_en:'Where is the restaurant?', q_ja:'レストランはどこですか？', q_hira:'れすとらん は どこ ですか？',
         a_en:'Across from the post office.', a_ja:'郵便局の向かいです。', a_hira:'ゆうびんきょく の むかい です。' },
       { q_en:'Is the bus stop near the school?', q_ja:'バス停は学校の近くですか？', q_hira:'ばすてい は がっこう の ちかく ですか？',
@@ -217,80 +160,22 @@
         a_en:'At the park entrance.', a_ja:'公園の入口で。', a_hira:'こうえん の いりぐち で。' },
     ];
 
-    // 20 Quiz (4 options each). Choices auto-generated from ALL_WORDS unless choices provided.
-    const ALL_WORDS = Array.from(new Set(VOCAB.map(v => v.en)));
-    function makeChoices(correct, n=4){
-      const pool = ALL_WORDS.filter(w => w!==correct);
-      // Shuffle
-      for(let i=pool.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[pool[i],pool[j]]=[pool[j],pool[i]];}
-      const picks = pool.slice(0,n-1);
-      const arr = [correct, ...picks];
-      for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];}
-      return arr;
-    }
-
-    const QUIZ = [
-      { cloze:'Turn ___ at the corner.', answers:['left'],    ja:'角で左に曲がってください。', hira:'かど で ひだり に まがって ください。', full:'Turn left at the corner.' },
-      { cloze:'Go ___ ahead.', answers:['straight'],          ja:'まっすぐ進んでください。', hira:'まっすぐ すすんで ください。', full:'Go straight ahead.' },
-      { cloze:'The park is ___ the school.', answers:['next to'], ja:'公園は学校の隣にあります。', hira:'こうえん は がっこう の となり に あります。', full:'The park is next to the school.' },
-      { cloze:'The restaurant is ___ the hospital.', answers:['across from'], ja:'レストランは病院の向かいにあります。', hira:'れすとらん は びょういん の むかい に あります。', full:'The restaurant is across from the hospital.' },
-      { cloze:'The subway station is ___ the park and the supermarket.', answers:['between'], ja:'地下鉄の駅は公園とスーパーの間にあります。', hira:'ちかてつ の えき は こうえん と すーぱー の あいだ に あります。', full:'The subway station is between the park and the supermarket.' },
-      { cloze:'The bus stop is on the ___.', answers:['left'], ja:'バス停は左側にあります。', hira:'ばすてい は ひだりがわ に あります。', full:'The bus stop is on the left.' },
-      { cloze:'Turn ___ at the traffic light.', answers:['right'], ja:'信号で右に曲がってください。', hira:'しんごう で みぎ に まがって ください。', full:'Turn right at the traffic light.' },
-      { cloze:'Go straight and you will see the ___.', answers:['supermarket'], ja:'まっすぐ進むと、スーパーが見えます。', hira:'まっすぐ すすむ と、 すーぱー が みえます。', full:'Go straight and you will see the supermarket.' },
-      { cloze:'Meet me at the park ___.', answers:['entrance'], ja:'公園の入口で会いましょう。', hira:'こうえん の いりぐち で あいましょう。', full:'Meet me at the park entrance.' },
-      { cloze:'The post office is ___ the station.', answers:['beside'], ja:'郵便局は駅のそばにあります。', hira:'ゆうびんきょく は えき の そば に あります。', full:'The post office is beside the station.' },
-
-      { cloze:'Take the ___ at the station.', answers:['subway'], ja:'駅で地下鉄に乗ってください。', hira:'えき で ちかてつ に のって ください。', full:'Take the subway at the station.' },
-      { cloze:'The airport is ___.', answers:['ahead'], ja:'空港は前方です。', hira:'くうこう は まえ です。', full:'The airport is ahead.' },
-      { cloze:'Go straight to the ___.', answers:['station'], ja:'駅までまっすぐ行ってください。', hira:'えき まで まっすぐ いって ください。', full:'Go straight to the station.' },
-      { cloze:'The school is ___ the park.', answers:['across from'], ja:'学校は公園の向かいにあります。', hira:'がっこう は こうえん の むかい に あります。', full:'The school is across from the park.' },
-      { cloze:'Turn ___ at the ___.', answers:['left'], ja:'角で左に曲がってください。', hira:'かど で ひだり に まがって ください。', full:'Turn left at the corner.' , choices: makeChoices('left')},
-      { cloze:'The ___ is next to the restaurant.', answers:['hospital'], ja:'病院はレストランの隣です。', hira:'びょういん は れすとらん の となり です。', full:'The hospital is next to the restaurant.' },
-      { cloze:'Go ___ and turn right.', answers:['straight'], ja:'まっすぐ行って右に曲がってください。', hira:'まっすぐ いって みぎ に まがって ください。', full:'Go straight and turn right.' },
-      { cloze:'The ___ is between the city and the sea.', answers:['airport'], ja:'空港は街と海の間にあります。', hira:'くうこう は まち と うみ の あいだ に あります。', full:'The airport is between the city and the sea.' },
-      { cloze:'Is the ___ far from here?', answers:['restaurant'], ja:'レストランはここから遠いですか？', hira:'れすとらん は ここ から とおい ですか？', full:'Is the restaurant far from here?' },
-      { cloze:'The bus stop is by the ___.', answers:['station'], ja:'バス停は駅のそばです。', hira:'ばすてい は えき の そば です。', full:'The bus stop is by the station.' },
-    ].map(q => ({ ...q, choices: q.choices || makeChoices(q.answers[0]) }));
-
-    // 10 short readings
     const READINGS = [
-      { en:'Go straight to the station. The station is big.', 
-        ja:'駅までまっすぐ行ってください。駅は大きいです。', 
-        hira:'えき まで まっすぐ いって ください。 えき は おおきい です。' },
-      { en:'The park is next to the school. Many children play there.', 
-        ja:'公園は学校の隣にあります。子どもがたくさん遊びます。', 
-        hira:'こうえん は がっこう の となり に あります。 こども が たくさん あそびます。' },
-      { en:'Turn right at the corner. You will see the restaurant.', 
-        ja:'角で右に曲がってください。レストランが見えます。', 
-        hira:'かど で みぎ に まがって ください。 れすとらん が みえます。' },
-      { en:'The post office is across from the station. It is easy to find.', 
-        ja:'郵便局は駅の向かいにあります。見つけやすいです。', 
-        hira:'ゆうびんきょく は えき の むかい に あります。 みつけ やすい です。' },
-      { en:'The hospital is beside the park. It is quiet there.', 
-        ja:'病院は公園のそばにあります。そこは静かです。', 
-        hira:'びょういん は こうえん の そば に あります。 そこ は しずか です。' },
-      { en:'Go straight and use the subway. It is fast.', 
-        ja:'まっすぐ行って地下鉄を使ってください。速いです。', 
-        hira:'まっすぐ いって ちかてつ を つかって ください。 はやい です。' },
-      { en:'The airport is between the city and the sea. Many planes come and go.', 
-        ja:'空港は街と海の間にあります。多くの飛行機が行き来します。', 
-        hira:'くうこう は まち と うみ の あいだ に あります。 おおく の ひこうき が いきき します。' },
-      { en:'Is the supermarket far? No, it is ahead on the left.', 
-        ja:'スーパーは遠いですか？いいえ、左の前方です。', 
-        hira:'すーぱー は とおい ですか？ いいえ、 ひだり の まえ です。' },
-      { en:'Meet me at the park entrance at three.', 
-        ja:'3時に公園の入口で会いましょう。', 
-        hira:'さんじ に こうえん の いりぐち で あいましょう。' },
-      { en:'The school is straight ahead. Turn right for the gym.', 
-        ja:'学校はまっすぐ前です。体育館は右に曲がってください。', 
-        hira:'がっこう は まっすぐ まえ です。 たいいくかん は みぎ に まがって ください。' },
+      { en:'Go straight to the station. The station is big.', ja:'駅までまっすぐ行ってください。駅は大きいです。', hira:'えき まで まっすぐ いって ください。 えき は おおきい です。' },
+      { en:'The park is next to the school. Many children play there.', ja:'公園は学校の隣にあります。子どもがたくさん遊びます。', hira:'こうえん は がっこう の となり に あります。 こども が たくさん あそびます。' },
+      { en:'Turn right at the corner. You will see the restaurant.', ja:'角で右に曲がってください。レストランが見えます。', hira:'かど で みぎ に まがって ください。 れすとらん が みえます。' },
+      { en:'The post office is across from the station. It is easy to find.', ja:'郵便局は駅の向かいにあります。見つけやすいです。', hira:'ゆうびんきょく は えき の むかい に あります。 みつけ やすい です。' },
+      { en:'The hospital is beside the park. It is quiet there.', ja:'病院は公園のそばにあります。そこは静かです。', hira:'びょういん は こうえん の そば に あります。 そこ は しずか です。' },
+      { en:'Go straight and use the subway. It is fast.', ja:'まっすぐ行って地下鉄を使ってください。速いです。', hira:'まっすぐ いって ちかてつ を つかって ください。 はやい です。' },
+      { en:'The airport is between the city and the sea. Many planes come and go.', ja:'空港は街と海の間にあります。多くの飛行機が行き来します。', hira:'くうこう は まち と うみ の あいだ に あります。 おおく の ひこうき が いきき します。' },
+      { en:'Is the supermarket far? No, it is ahead on the left.', ja:'スーパーは遠いですか？いいえ、左の前方です。', hira:'すーぱー は とおい ですか？ いいえ、 ひだり の まえ です。' },
+      { en:'Meet me at the park entrance at three.', ja:'3時に公園の入口で会いましょう。', hira:'さんじ に こうえん の いりぐち で あいましょう。' },
+      { en:'The school is straight ahead. Turn right for the gym.', ja:'学校はまっすぐ前です。体育館は右に曲がってください。', hira:'がっこう は まっすぐ まえ です。 たいいくかん は みぎ に まがって ください。' },
     ];
 
-    // 5 diary prompts with hints
     const DIARY = [
       { en:'Write about how you go to school.',
-        ja:'学校への行き方について書きましょう。',
+        ja:'学校への行き方について書きましょう。\nヒント：まっすぐ／左に曲がる／右に曲がる を使う',
         hira:'がっこう への いきかた について かきましょう。',
         hints:[
           'Use: go straight / turn left / turn right',
@@ -298,15 +183,15 @@
           'Example opener: I go straight to the bus stop...'
         ] },
       { en:'Describe a place near your house.',
-        ja:'家の近くの場所を紹介しましょう。',
-        hira:'いえ の ちかく の ばしょ を しょうかい しましょう。',
+        ja:'家の近くの場所を紹介しましょう。\nヒント：となり／むかいがわ／そば を使う',
+        hira:'いえ の ちかく の ばしょ を しょうかい しましょう.',
         hints:[
           'Use: next to / across from / beside',
           'Place: supermarket / school / restaurant',
           'Add distance: near / far'
         ] },
       { en:'Give directions to your favorite restaurant.',
-        ja:'お気に入りのレストランへの行き方を書きましょう。',
+        ja:'お気に入りのレストランへの行き方を書きましょう。\nヒント：かどで曲がる／まっすぐ進む',
         hira:'おきにいり の れすとらん への いきかた を かきましょう。',
         hints:[
           'Start at: station or bus stop',
@@ -314,7 +199,7 @@
           'Finish: It is on the left/right.'
         ] },
       { en:'Write about a time you got lost.',
-        ja:'迷ったときのことを書きましょう。',
+        ja:'迷ったときのことを書きましょう。\nヒント：「〜はどこですか？」と聞く',
         hira:'まよった とき の こと を かきましょう。',
         hints:[
           'Question you asked: Where is the ___?',
@@ -322,7 +207,7 @@
           'How you felt: worried / okay'
         ] },
       { en:'Plan a trip from the station to the airport.',
-        ja:'駅から空港までの計画を書きましょう。',
+        ja:'駅から空港までの計画を書きましょう。\nヒント：時間＋進む→曲がる',
         hira:'えき から くうこう まで の けいかく を かきましょう。',
         hints:[
           'Transport: subway / bus',
@@ -331,144 +216,79 @@
         ] },
     ];
 
-    // -------------- State & Elements --------------
-    let deck = [];
-    let index = 0;
-    let showingFront = true;
-
-    const els = {
-      mode: document.getElementById('mode'),
-      card: document.getElementById('card'),
-      label: document.getElementById('label'),
-      main: document.getElementById('main'),
-      sub: document.getElementById('sub'),
-      hira: document.getElementById('hira'),
-      counter: document.getElementById('counter'),
-      bar: document.getElementById('bar'),
-      btnPrev: document.getElementById('btnPrev'),
-      btnNext: document.getElementById('btnNext'),
-      btnFlip: document.getElementById('btnFlip'),
-      btnShuffle: document.getElementById('btnShuffle'),
-      mcArea: document.getElementById('mcArea'),
+    // --- State/UI ---
+    let deck=[]; let index=0; let showingFront=true;
+    const els={
+      mode:document.getElementById('mode'),
+      label:document.getElementById('label'),
+      main:document.getElementById('main'),
+      hira:document.getElementById('hira'),
+      counter:document.getElementById('counter'),
+      bar:document.getElementById('bar'),
+      btnPrev:document.getElementById('btnPrev'),
+      btnNext:document.getElementById('btnNext'),
+      btnFlip:document.getElementById('btnFlip'),
+      btnShuffle:document.getElementById('btnShuffle'),
     };
 
-    // Helpers
-    function shuffle(arr){ for(let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]]} return arr; }
+    function shuffle(a){for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a;}
 
-    // Build deck
     function buildDeck(){
-      const mode=els.mode.value;
-      if(mode==='vocab-j2e' || mode==='vocab-e2j'){
-        const combined=[...VOCAB];
-        deck=combined.map(x=>({
+      const m=els.mode.value;
+      if(m==='vocab'){
+        deck=VOCAB.map(x=>({
           type:'vocab',
-          front:mode==='vocab-j2e'?`${x.ja}`:`${x.en}`,
-          back:mode==='vocab-j2e'?`${x.en} / ${x.ja}`:`${x.ja} / ${x.en}`,
+          front:x.ja,
+          back:`${x.en} / ${x.ja}`,
           hira:x.hira,
-          sideLabelFront:mode==='vocab-j2e'?'Japanese → English':'English → Japanese',
-          sideLabelBack:'Answer'
+          sideFront:'Vocab (JP)',
+          sideBack:'Answer (EN + JP)'
         }));
-      } else if(mode==='sentences'){
-        deck=SENTENCES.map(s=>({
-          type:'sentence',
-          front:s.ja,
-          back:s.en+'\n'+s.ja,
-          hira:s.hira,
-          sideLabelFront:'Japanese sentence',
-          sideLabelBack:'Answer'
-        }));
-      } else if(mode==='qa'){
-        deck=QA.map(q=>({
-          type:'qa',
-          front:q.q_ja,
-          back:q.a_en+'\n'+q.a_ja,
-          hira:q.q_hira+'\n'+q.a_hira,
-          sideLabelFront:'Question (JA)',
-          sideLabelBack:'Answer'
-        }));
-      } else if(mode==='quiz'){
-        deck=QUIZ.map(q=>({
-          type:'quiz',
-          front:q.cloze,
-          back:q.full+'\n'+q.ja,
-          hira:q.hira,
-          answers:q.answers,
-          choices:q.choices,
-          sideLabelFront:'Choose',
-          sideLabelBack:'Answer'
-        }));
-      } else if(mode==='reading'){
-        deck=READINGS.map(r=>({
-          type:'reading',
-          front:r.ja,
-          back:r.en+'\n'+r.ja,
-          hira:r.hira,
-          sideLabelFront:'Reading (JA)',
-          sideLabelBack:'Reading (EN+JA)'
-        }));
-      } else if(mode==='diary'){
+      } else if(m==='sentences'){
+        deck=SENTENCES.map(s=>({type:'sentence',front:s.ja,back:s.en+'\n'+s.ja,hira:s.hira,sideFront:'Sentence (JP)',sideBack:'Answer'}));
+      } else if(m==='qa'){
+        deck=QA.map(q=>({type:'qa',front:q.q_ja,back:q.a_en+'\n'+q.a_ja,hira:q.q_hira+'\n'+q.a_hira,sideFront:'Q (JP)',sideBack:'A (EN+JP)'}));
+      } else if(m==='reading'){
+        deck=READINGS.map(r=>({type:'reading',front:r.ja,back:r.en+'\n'+r.ja,hira:r.hira,sideFront:'Reading (JP)',sideBack:'Reading (EN+JP)'}));
+      } else if(m==='diary'){
         deck=DIARY.map(d=>({
           type:'diary',
-          front:d.ja,
+          front:d.ja, // includes JP hint inline
           back:d.en+'\n'+(d.hints?('Hints:\n- '+d.hints.join('\n- ')):''),
           hira:d.hira,
-          sideLabelFront:'Diary idea (JA)',
-          sideLabelBack:'EN + Hints'
+          sideFront:'Diary (JP + Hint)',
+          sideBack:'EN + All Hints'
         }));
-      } else { deck=[]; }
+      } else deck=[];
       index=0;showingFront=true;render();
     }
 
-    // Render
     function render(){
-      if(deck.length===0){els.main.textContent='—'; els.sub.textContent='Choose a mode'; return;}
-      const item=deck[index];
-      els.label.textContent=showingFront?item.sideLabelFront:item.sideLabelBack;
-      const content=showingFront?item.front:item.back;
+      if(!deck.length){els.main.textContent='—';els.label.textContent='Choose a mode';els.hira.classList.add('hidden');return;}
+      const it=deck[index];
+      els.label.textContent=showingFront?it.sideFront:it.sideBack;
+      const content=showingFront?it.front:it.back;
       if(!showingFront && content.includes('\n')){
-        const [en,jaOrRest]=content.split('\n');
-        els.main.innerHTML=`<div style="font-size:22px;font-weight:700;white-space:pre-line">${en}</div><div class="sub" style="white-space:pre-line">${jaOrRest}</div>`;
+        const [en,rest]=content.split('\n',2);
+        els.main.innerHTML=`<div style="font-size:22px;font-weight:700;white-space:pre-line">${en}</div><div class="sub" style="white-space:pre-line">${rest}</div>`;
       } else { els.main.textContent=content; }
-      if(item.hira){ els.hira.classList.remove('hidden'); els.hira.textContent=item.hira; } 
-      else { els.hira.classList.add('hidden'); els.hira.textContent=''; }
-
-      if(item.type==='quiz' && showingFront){
-        els.mcArea.classList.remove('hidden'); els.mcArea.innerHTML='';
-        item.choices.forEach(opt=>{
-          const btn=document.createElement('button'); btn.className='optbtn'; btn.textContent=opt;
-          btn.addEventListener('click',e=>{
-            e.preventDefault();
-            const norm=s=>s.toLowerCase().trim();
-            const isCorrect=item.answers.map(a=>norm(a)).includes(norm(opt));
-            if(isCorrect){
-              btn.classList.add('ok');
-              [...els.mcArea.querySelectorAll('button')].forEach(b=>b.disabled=true);
-              setTimeout(()=>{showingFront=false;render();},300);
-            } else {
-              btn.classList.add('bad'); btn.disabled=true;
-            }
-          });
-          els.mcArea.appendChild(btn);
-        });
-      } else { els.mcArea.classList.add('hidden'); els.mcArea.innerHTML=''; }
-      els.counter.textContent=`${index+1} / ${deck.length}`; els.bar.style.width=`${((index+1)/deck.length)*100}%`;
+      if(it.hira){ els.hira.classList.remove('hidden'); els.hira.textContent=it.hira; } else { els.hira.classList.add('hidden'); els.hira.textContent=''; }
+      els.counter.textContent=`${index+1} / ${deck.length}`;
+      els.bar.style.width=`${((index+1)/deck.length)*100}%`;
     }
 
-    // Navigation
     function prev(){index=(index-1+deck.length)%deck.length;showingFront=true;render();}
     function next(){index=(index+1)%deck.length;showingFront=true;render();}
     function flip(){showingFront=!showingFront;render();}
     function shuffleDeck(){deck=shuffle(deck);index=0;showingFront=true;render();}
 
-    // Events
     els.mode.addEventListener('change',buildDeck);
-    document.getElementById('btnPrev').addEventListener('click',prev);
-    document.getElementById('btnNext').addEventListener('click',next);
-    document.getElementById('btnFlip').addEventListener('click',flip);
-    document.getElementById('btnShuffle').addEventListener('click',shuffleDeck);
+    els.btnPrev.addEventListener('click',prev);
+    els.btnNext.addEventListener('click',next);
+    els.btnFlip.addEventListener('click',flip);
+    els.btnShuffle.addEventListener('click',shuffleDeck);
     window.addEventListener('keydown',e=>{if(e.code==='ArrowLeft')prev(); else if(e.code==='ArrowRight')next(); else if(e.code==='Space'){e.preventDefault();flip();}});
 
-    // Init
     buildDeck();
   </script>
 </body>
